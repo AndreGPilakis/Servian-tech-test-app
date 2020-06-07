@@ -1,0 +1,67 @@
+- name: Download and install tech test app
+  hosts: all
+  vars:
+    app_directory: "/etc/tech-test-app"
+    archived_application: "TechTestApp_v.0.6.0_linux64.zip" 
+  tasks:
+    # Creates directory for app with suitible permissions.
+    - name: Create app directory
+      become: yes
+      file:
+        path: "{{ app_directory }}"
+        state: directory
+        mode: '0755'
+    - name: Download and unzip file
+      become: yes
+      unarchive:
+        src: https://github.com/servian/TechTestApp/releases/download/v.0.6.0/TechTestApp_v.0.6.0_linux64.zip
+        dest: "{{ app_directory }}"
+        remote_src: yes
+    #Move config file to server from template.
+    #Listenhost, listenPort and db_port have not beeng gathered from tf out as they are to remain the same with each deployment.
+    - name: Update config file
+      become: yes
+      vars:
+        db_user: "{{ db_user }}"
+        db_password: "{{ db_pass }}"
+        db_name: app
+        db_port: 5432
+        trimmed_db_endpoint: "{{db_endpoint | replace(':5432','')}}"
+        listen_host: "0.0.0.0"
+        listen_port: 80
+      template:
+        dest: "{{ app_directory }}/dist/conf.toml"
+        src: templates/config.toml.tpl
+
+     #Transfer service template to Server
+     #This ensures the server will serve whenever an ec2 instance is booted.
+    - name: Transfer Server start template
+      become: yes
+      template:
+        dest: /usr/lib/systemd/system/startServer.service
+        src: templates/startServer.service.tpl
+    #start the service
+    - name: Ensure service is enabled
+      become: yes
+      service:
+        name: startServer.service
+        state: started
+        enabled: yes
+
+    #Seeds the database on the server. There is no need to create a database as we do this during out terraform infustructure.
+    #Attempting to run this without the -s flag will cause errors as it will drop the tables and we do not have permissions
+    #to recreate them.
+    - name: Seed database
+      become: yes
+      command: ./TechTestApp updatedb -s
+      args:
+        chdir: "{{ app_directory }}/dist"
+
+
+
+      
+    
+      
+
+    
+  
