@@ -1,9 +1,6 @@
 # Servian TechTestApp
 This is Andre's (s3664056) rendition of the Servian Tech test application. It aims to pull the latest release of the application and deploy it to an ec2 instance with a functional database through the use of terraform and ansible.
 
-NOTE TO ASSESORS: Tasks a,b,c,d and e have been completed on the master branch as they are fully complete. The instructions and documents have been completed in the readme on the master branch.
-
-Due to lack of time/knowledge task f and d were hardly completed. There is a very vague attempt on the 'd/hd tasks' branch however it does not work. Because of this there is also little-no documentation on it.
 ## Dependencies
 In order to run this application you will need:
 - The latest version of [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -260,5 +257,3 @@ All that is left now to do is seed the database, whch is done with the updatedb 
 ```
 Do note the -s flag. If you do not have the -s flag here it will ruin the databse as it will drop the tables and attempt to re-create them which we do not have the permissions for. the-s flag MUST be used. see [issue #29](https://github.com/servian/TechTestApp/issues/29) for more info.
 
-## Task F and G
-See d/hd task branch for what was attempted.
