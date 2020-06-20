@@ -1,5 +1,5 @@
 # Servian TechTestApp
-This is Andre's rendition of the [Servian Tech test application.](https://github.com/servian/TechTestApp) It aims to pull the latest release of the application and deploy it to an ec2 instance with a functional database through the use of terraform and ansible.
+This is Andre's rendition of the [Servian Tech test application.](https://github.com/servian/TechTestApp) It aims to pull the latest release of the application and deploy it to an ec2 instance with a functional database through the use of terraform and ansible. Infastructure has been temporarily left down due to AWS expenses.
 
 ## Dependencies
 In order to run this application you will need:
