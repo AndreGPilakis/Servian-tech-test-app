@@ -1,5 +1,5 @@
 # Servian TechTestApp
-This is Andre's (s3664056) rendition of the Servian Tech test application. It aims to pull the latest release of the application and deploy it to an ec2 instance with a functional database through the use of terraform and ansible.
+This is Andre's rendition of the [Servian Tech test application.](https://github.com/servian/TechTestApp) It aims to pull the latest release of the application and deploy it to an ec2 instance with a functional database through the use of terraform and ansible.
 
 ## Dependencies
 In order to run this application you will need:
@@ -7,7 +7,7 @@ In order to run this application you will need:
 - A stable version of [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - The Servian [TechTestApp](https://github.com/servian/techtestapp) - This will be automatically deployed via ansible so there is no need to install this locally.
 
-## Deploy instructions
+## Deployment instructions
 To Deploy this application:
 - Ensure you have configured valid AWS credentials.
 - Clone or download this project via github.
@@ -24,12 +24,10 @@ To tear-down the infastructure:
 - run `$ make down`
     - This will destroy all of the deployed terraform infastructure.
 
-## Problem Analysis
-ACME corp. has been gaining increased interest in DevOps after seeing the improvements from the previous work (a1) completed for them. However, Most of their deployments have been done through manually using clickops. There are numerous issues with this namely human error. In order to combat this they have contacted us amazing students to automate the deployment of their application, the [Servian TechTestApp](https://github.com/servian/techtestapp). In order to automate the deployment of this application I will use Terraform scripts to deploy the application to an AWS EC2 instance which is linked to an RDS. The application will then be configured through the use of ansible. All of this will be doable with one CLI input, so that the whole process is automated.
 
-# Assignment tasks
+# Tech test tasks
 
-## Task b - create a VPC using Terraform to host the application
+## Create a VPC using Terraform to host the application
 This task has been complete in the /infra/vpc.tf file.
 
 First, the vpc is created at the start of the file.
@@ -70,7 +68,7 @@ resource "aws_subnet" "Cervian_public1" {
 
 The subnets have been created in this way so that there is 3 layers across 3 availibility zones. (Public, Private and Data.)
 
-## task c - Create 3 layer application infastructure using Terraform
+## Create 3 layer application infastructure using Terraform
 
 ### Creating a load balancer in the public layer
 First, a target group is creaded for the loadbalancer inside ec2.tf:
@@ -244,7 +242,7 @@ Once the service has been transfered onto the server, we run another ansible com
 ```
 This will ensure that the startServer service is always running when the ec2 instance is up.
 
-## Task e -  Automate database deployment to the database instance
+## Automate database deployment to the database instance
 
 This is rather simple as we have already deployed the database with terraform in the db.tf file.
 All that is left now to do is seed the database, whch is done with the updatedb command. This is how it looks in our ansible playbook :
