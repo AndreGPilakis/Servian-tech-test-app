@@ -16,7 +16,7 @@ To Deploy this application:
 - run `$ make up`
     - This will initialise, plan and apply via terraform and then run our ansible playbook to deploy the server and seed the database. Note this will take up to 10 minutes.
 - To view the application, navigate to the IP address output from the ansible script on port 80 in a web browser. Alternatively, you may enter the load balancer endpoint given from `terraform output` if you wish.
-- NOTE: This configuration will use your default public key stored in .shh/id_rsa.pub . If wish to use a different public key navigate on line 9 of ec2.tf. 
+
 
 ## Cleanup instructions
 To tear-down the infastructure: 
